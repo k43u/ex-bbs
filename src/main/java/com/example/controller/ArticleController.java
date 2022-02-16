@@ -50,7 +50,7 @@ public class ArticleController {
 	 * @return 掲示板
 	 */
 	@RequestMapping("/index")
-	public String index(Integer articleId, Model model) {
+	public String index(Model model) {
 		List<Article> articleList = articleService.showList();
 		for(Article article : articleList) {
 		List<Comment> commentList =	commentService.findByArticleId(article.getId());
@@ -102,6 +102,12 @@ public class ArticleController {
 		return "board";
 	}
 	
+	@RequestMapping("/deleteArticle")
+	public String deleteArticle(Model model) {
+		Article article = new Article();
+		articleService.deleteById(article.getId());
+		commentService.deleteByArticleId(article.getId());
+		return "board";
+	}
 	
-		
 }

@@ -38,4 +38,8 @@ public class CommentService {
 	public void insert(Comment comment) {
 		commentRepository.insert(comment);
 	}
+	
+	public void deleteByArticleId(int articleId) {
+		commentRepository.deleteByArticleId(articleId);
+	}
 }

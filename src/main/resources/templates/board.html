@@ -25,6 +25,12 @@
      <div th:text="${article.content}">投稿内容</div>
      </div>
      
+     <form method="post" action="board.html"
+                     th:action="@{/article/deleteArticle}" th:object="${articleForm}">
+			<input type="hidden" name="id" th:value="${article.id}">
+			<button type="submit">記事削除</button>
+    </form>
+     
      <div th:each="comment : ${article.commentList}">
       <div>
        コメント者名:

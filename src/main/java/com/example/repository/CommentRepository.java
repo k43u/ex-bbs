@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.example.domain.Comment;
 
-
 /**
  * commentsテーブルを操作するリポジトリです。
  * 
@@ -20,10 +19,10 @@ import com.example.domain.Comment;
  */
 @Repository
 public class CommentRepository {
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	private static final RowMapper<Comment> COMMENT_ROW_MAPPER = (rs, i) -> {
 		Comment comment = new Comment();
 		comment.setId(rs.getInt("id"));
@@ -32,9 +31,10 @@ public class CommentRepository {
 		comment.setArticleId(rs.getInt("article_id"));
 		return comment;
 	};
-	
+
 	/**
 	 * 投稿ごとのコメントを表示
+	 * 
 	 * @param articleId
 	 * @return 投稿ごとのコメントの情報
 	 */
@@ -47,19 +47,31 @@ public class CommentRepository {
 
 		return commentList;
 	}
-	
+
 	/**
 	 * コメントを挿入する
-	 * @param article 
+	 * 
+	 * @param article
 	 */
-	public void insert(Comment comment){
-		SqlParameterSource param
-		 = new BeanPropertySqlParameterSource(comment);
-		
-	    String insertSql
-			 = "INSERT INTO comments(name,content,article_id) VALUES(:name,:content,:articleId);";
-	    
+	public void insert(Comment comment) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(comment);
+
+		String insertSql = "INSERT INTO comments(name,content,article_id) VALUES(:name,:content,:articleId);";
+
 		template.update(insertSql, param);
 	}
-	
+
+	/**
+	 * コメントを削除する
+	 * 
+	 * @param articleId
+	 */
+	public void deleteByArticleId(Integer articleId) {
+		String sql = "DELETE FROM comments WHERE article_id = :articleId";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("articleId", articleId);
+
+		template.update(sql, param);
+	}
+
 }

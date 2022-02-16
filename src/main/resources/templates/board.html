@@ -18,24 +18,36 @@
   <div th:each="article : ${articleList}">
     <div>
     投稿者名:
-     <span th:text="${article.name}">投稿者名</span>
+     <div th:text="${article.name}">投稿者名</div>
     </div>
     <div>
-    投稿内容:<br>
-     <span th:text="${article.content}">投稿内容</span>
+    投稿内容:
+     <div th:text="${article.content}">投稿内容</div>
+     </div>
      
-     <form method="post" action="board.html"
-				      th:action="@{/insertComment}" th:object="${articleForm}">
+     <div th:each="comment : ${article.commentList}">
+      <div>
+       コメント者名:
+        <div th:text="${comment.name}"></div>
+      </div>
+      <div>
+       コメント内容:
+        <div th:text="${comment.content}"></div>
+      </div>
+     </div>
+     
+      <form method="post" action="board.html"
+				      th:action="@{/article/insertComment}" th:object="${commentForm}">
       <label for="name">名前:</label><br>
 	  <input type="text" name="name" id="name" th:field="*{name}"><br>  
 	  <label for="comment">コメント:</label><br>
 	  <textarea rows="4" cols="30" id="content" name="content" th:field="*{content}"></textarea><br>
+	  <input type="hidden" name="articleId" th:value="${article.id}">
 	  <button type="submit">コメント投稿</button>
      </form> 
      
-    </div>
      <hr>
-  </div>
+    </div>
  
 </body>
 </html>

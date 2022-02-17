@@ -26,7 +26,7 @@
      </div>
      
      <form method="post" action="board.html"
-                     th:action="@{/article/deleteArticle}" th:object="${articleForm}">
+                     th:action="@{/article/deleteArticle}">
 			<input type="hidden" name="id" th:value="${article.id}">
 			<button type="submit">記事削除</button>
     </form>
@@ -45,9 +45,9 @@
       <form method="post" action="board.html"
 				      th:action="@{/article/insertComment}" th:object="${commentForm}">
       <label for="name">名前:</label><br>
-	  <input type="text" name="name" id="name" th:field="*{name}"><br>  
+	  <input type="text" name="name" id="name"><br>  
 	  <label for="comment">コメント:</label><br>
-	  <textarea rows="4" cols="30" id="content" name="content" th:field="*{content}"></textarea><br>
+	  <textarea rows="4" cols="30" id="content" name="content"></textarea><br>
 	  <input type="hidden" name="articleId" th:value="${article.id}">
 	  <button type="submit">コメント投稿</button>
      </form> 

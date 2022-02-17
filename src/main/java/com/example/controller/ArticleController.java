@@ -103,10 +103,15 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/deleteArticle")
-	public String deleteArticle(Model model) {
-		Article article = new Article();
-		articleService.deleteById(article.getId());
-		commentService.deleteByArticleId(article.getId());
+	public String deleteArticle(Integer id, Model model) {
+		commentService.deleteByArticleId(id);
+		articleService.deleteById(id);
+		List<Article> articleList = articleService.showList();
+		for(Article article1 : articleList) {
+		List<Comment> commentList =	commentService.findByArticleId(article1.getId());
+		article1.setCommentList(commentList); 	
+		}
+		model.addAttribute("articleList", articleList);
 		return "board";
 	}
 	

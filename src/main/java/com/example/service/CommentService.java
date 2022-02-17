@@ -39,6 +39,11 @@ public class CommentService {
 		commentRepository.insert(comment);
 	}
 	
+	/**
+	 * コメント情報を削除する。
+	 * 
+	 * @param articleId
+	 */
 	public void deleteByArticleId(int articleId) {
 		commentRepository.deleteByArticleId(articleId);
 	}
